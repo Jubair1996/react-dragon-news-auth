@@ -12,11 +12,11 @@ const Home = () => {
             <Navbar></Navbar>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="border">
+                <div>
                     <LeftSiteNav></LeftSiteNav>
                 </div>
-                <div className="border md:col-span-2">Coming Soon</div>
-                <div className="border">
+                <div className="md:col-span-2">Coming Soon</div>
+                <div >
                     <RightSiteNav></RightSiteNav>
                 </div>
             </div>
