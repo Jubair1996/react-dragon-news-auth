@@ -1,11 +1,12 @@
 import { initializeApp } from "firebase/app";
+console.log(import.meta.env.VITE__PASS)
 const firebaseConfig = {
-  apiKey: "AIzaSyCbIoWvjelYfmCrLMhsBjkpusGj7y_CI4c",
-  authDomain: "react-dragon-nesw-auth.firebaseapp.com",
-  projectId: "react-dragon-nesw-auth",
-  storageBucket: "react-dragon-nesw-auth.appspot.com",
-  messagingSenderId: "59232405683",
-  appId: "1:59232405683:web:e4395144b4a2639b9b48c6"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 const app = initializeApp(firebaseConfig);
