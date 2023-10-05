@@ -1,12 +1,30 @@
 import { Link, NavLink } from "react-router-dom";
 import userDefaultPic from "../../assets/user.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 const Navbar = () => {
-    const navLinks = <>
-    <li><NavLink to = "/">Home</NavLink></li>
-    <li><NavLink to = "/about">About</NavLink></li>
-    <li><NavLink to="/career">Career</NavLink></li>
-    
+  const { user, logOut } = useContext(AuthContext);
+  const handleSignOut = () =>{
+    logOut()
+    .then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  const navLinks = (
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/about">About</NavLink>
+      </li>
+      <li>
+        <NavLink to="/career">Career</NavLink>
+      </li>
     </>
+  );
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -36,21 +54,25 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal text-[#706F6F] px-1">
-          {navLinks}
-        </ul>
+        <ul className="menu menu-horizontal text-[#706F6F] px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end my-4">
-      <label tabIndex={0} className="btn btn-ghost btn-circle avatar mr-2">
-        <div className="w-10 rounded-full">
-          <img src={userDefaultPic} />
-        </div>
-      </label>
-        <Link to = "/login">
-          <button className="bg-[#403F3F] px-6 py-1 rounded-sm text-white text-xl">
-            Login
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar mr-2">
+          <div className="w-10 rounded-full">
+            <img src={userDefaultPic} />
+          </div>
+        </label>
+        {user ? (
+          <button onClick={handleSignOut} className="bg-[#403F3F] px-6 py-1 rounded-sm text-white text-xl">
+            Sign Out
           </button>
-        </Link>
+        ) : (
+          <Link to="/login">
+            <button className="bg-[#403F3F] px-6 py-1 rounded-sm text-white text-xl">
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

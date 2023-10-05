@@ -1,13 +1,28 @@
 import { Link } from "react-router-dom";
 import Navbar from "../../shared/Navbar/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
-    const handleLogin = (e) => {
-        e.preventDefault();
-        console.log(e.currentTarget);
-        const form = new FormData(e.currentTarget);
-        console.log(form.get("email"));
-    }
+  const { signIn } = useContext(AuthContext);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // console.log(e.currentTarget);
+    const form = new FormData(e.currentTarget);
+    const email = form.get("email");
+    const password = form.get("password");
+    // console.log(form.get("email"));
+    signIn(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
   return (
     <div>
       <Navbar></Navbar>
@@ -52,7 +67,12 @@ const Login = () => {
                 <button className="btn btn-primary">Login</button>
               </div>
             </form>
-            <p className="text-center  mb-2">Dont’t Have An Account ? <Link to="/register" className="text-red-400 font-semibold">Register</Link></p>
+            <p className="text-center  mb-2">
+              Dont’t Have An Account ?{" "}
+              <Link to="/register" className="text-red-400 font-semibold">
+                Register
+              </Link>
+            </p>
           </div>
         </div>
       </div>
